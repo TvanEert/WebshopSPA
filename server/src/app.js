@@ -1,12 +1,25 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const morgan = require('morgan');
+/* eslint-disable no-undef */
+const express = require('express')
+const mysql = require('mysql')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const morgan = require('morgan')
 
-const app = express();
+const app = express()
 app.use(morgan('combine'))
 app.use(bodyParser.json())
 app.use(cors())
+
+let con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: ""
+})
+
+con.connect((err) => {
+    if (err) throw err
+    console.log('DB Connected!')
+})
 
 app.get('/status', (req, res) => {
     res.send({
