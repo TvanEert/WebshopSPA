@@ -10,6 +10,16 @@ app.use(morgan('combine'))
 app.use(bodyParser.json())
 app.use(cors())
 
+//Server
+app.get('/status', (req, res) => {
+    res.send({
+        message: "Server is running!"
+    })
+})
+
+app.listen(process.env.PORT || 8081)
+
+//Database
 let con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -20,11 +30,3 @@ con.connect((err) => {
     if (err) throw err
     console.log('DB Connected!')
 })
-
-app.get('/status', (req, res) => {
-    res.send({
-        message: "Server is running!"
-    })
-})
-
-app.listen(process.env.PORT || 8081)
