@@ -21,12 +21,13 @@ app.listen(process.env.PORT || 8081)
 
 //Database
 let con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: ""
+    host: 'localhost',
+    user: 'root', 
+    password: '',
+    database: 'spawebshop'
 })
 
 con.connect((err) => {
     if (err) throw err
-    console.log('DB Connected!')
+    console.log("DB Connected!")
 })
