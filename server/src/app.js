@@ -1,33 +1,14 @@
 /* eslint-disable no-undef */
 const express = require('express')
-const mysql = require('mysql')
-const bodyParser = require('body-parser')
 const cors = require('cors')
-const morgan = require('morgan')
+const dotenv = require('dotenv')
+dotenv.config()
+
+const dbService = require('./dbConnection')
 
 const app = express()
-app.use(morgan('combine'))
-app.use(bodyParser.json())
 app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended : false}))
 
-//Server
-app.get('/status', (req, res) => {
-    res.send({
-        message: "Server is running!"
-    })
-})
-
-app.listen(process.env.PORT || 8081)
-
-//Database
-let con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root', 
-    password: '',
-    database: 'spawebshop'
-})
-
-con.connect((err) => {
-    if (err) throw err
-    console.log("DB Connected!")
-})
+app.listen(process.env.PORT || 8081, () => console.log("Server is running!"))
